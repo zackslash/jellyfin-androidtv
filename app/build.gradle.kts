@@ -30,8 +30,18 @@ android {
 		isCoreLibraryDesugaringEnabled = true
 	}
 
+	signingConfigs {
+		create("debugKeystore") {
+			storeFile = file("${System.getProperty("user.home")}/.android/debug.keystore")
+			storePassword = "android"
+			keyAlias = "androiddebugkey"
+			keyPassword = "android"
+		}
+	}
+
 	buildTypes {
 		release {
+			signingConfig = signingConfigs.getByName("debugKeystore")
 			proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
 			// Set package names used in various XML files
